@@ -1,0 +1,16 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+    width="130"
+    height="130"
+>
+    <!-- Background Circle -->
+    <circle cx="32" cy="30" r="28" fill="#4CAF50" />
+
+    <!-- Bank Symbol -->
+    <rect x="18" y="26" width="28" height="18" fill="#FFFFFF" />
+    <polygon points="32 12, 16 24, 48 24" fill="#FFFFFF" />
+    <rect x="22" y="24" width="4" height="14" fill="#4CAF50" />
+    <rect x="30" y="24" width="4" height="14" fill="#4CAF50" />
+    <rect x="38" y="24" width="4" height="14" fill="#4CAF50" />
+</svg>
