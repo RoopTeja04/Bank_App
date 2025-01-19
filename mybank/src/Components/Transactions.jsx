@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import SwapHorizRoundedIcon from '@mui/icons-material/SwapHorizRounded';
 
 const Transactions = ({ accounts_Data, setAccounts_Data }) => {
-
   const defaultTransferValues = {
     FromAccountNumber: '',
     ToAccountNumber: '',
@@ -16,7 +16,7 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
   const [TransferAmount, setTransferAmount] = useState(defaultTransferAmount);
   const [fromAccount, setFromAccount] = useState(null);
   const [toAccount, setToAccount] = useState(null);
-  const [ visible, setVisible ] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const handleTransfer = (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
     setFromAccount(findFromAccountNumber);
     setToAccount(findToAccountNumber);
     alert('Accounts validated. You can proceed with the transfer.');
-    setVisible(true)
+    setVisible(true);
   };
 
   const handleAmount = (e) => {
@@ -71,8 +71,10 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
           (account) => account.AccountNumber === toAccount.AccountNumber
         );
 
-        updatedAccounts[fromAccountIndex].Balance = Number(updatedAccounts[fromAccountIndex].Balance) - Number(TransferAmount.Amount);
-        updatedAccounts[toAccountIndex].Balance = Number(updatedAccounts[toAccountIndex].Balance) + Number(TransferAmount.Amount);
+        updatedAccounts[fromAccountIndex].Balance =
+          Number(updatedAccounts[fromAccountIndex].Balance) - Number(TransferAmount.Amount);
+        updatedAccounts[toAccountIndex].Balance =
+          Number(updatedAccounts[toAccountIndex].Balance) + Number(TransferAmount.Amount);
 
         const transactionTime = new Date().toLocaleString();
         const fromTransactionDetails = {
@@ -124,7 +126,7 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
       <div className="relative text-white flex flex-col items-center justify-center top-14 w-screen">
         <h1 className="text-3xl font-semibold tracking-wide">Money Transfer</h1>
         <div className="flex flex-row justify-center relative top-16 space-x-20 w-full">
-          <input
+          <motion.input
             type="text"
             value={transferAccountNumbers.FromAccountNumber}
             onChange={(e) =>
@@ -135,13 +137,15 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
             }
             placeholder="From Account Number"
             className="text-xl px-4 py-2 w-1/4 border-b-2 bg-transparent focus:outline-none font-semibold focus:border-green-600 tracking-wider"
+            whileFocus={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
           />
           <SwapHorizRoundedIcon
             className="relative top-1 text-6xl border-4 border-white rounded-full px-2 cursor-pointer"
-            fontSize=""
+            fontSize=''
             onClick={SwapAccountNumber}
           />
-          <input
+          <motion.input
             type="text"
             value={transferAccountNumbers.ToAccountNumber}
             onChange={(e) =>
@@ -152,19 +156,27 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
             }
             placeholder="To Account Number"
             className="text-xl px-4 py-2 w-1/4 border-b-2 bg-transparent focus:outline-none font-semibold focus:border-green-600 tracking-wider"
+            whileFocus={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
           />
         </div>
-        <button
+        <motion.button
           type="button"
           onClick={handleTransfer}
           className="relative top-32 h-14 border-white border-2 w-1/6 cursor-pointer text-xl font-bold tracking-wider rounded-xl px-6 py-2 bg-blue-700 text-white hover:bg-blue-500 hover:text-black hover:border-black transition duration-300"
+          whileHover={{ scale: 1.1 }}
         >
           Search Account
-        </button>
-        {
-          visible && (
-          <div className="flex flex-col relative items-center top-44 py-2 w-screen">
-            <input
+        </motion.button>
+        {visible && (
+          <motion.div
+            className="flex flex-col relative items-center top-44 py-2 w-screen"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.input
               type="text"
               value={TransferAmount.Amount}
               onChange={(e) =>
@@ -172,17 +184,19 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
               }
               placeholder="Enter the Amount ₹ 1 /-"
               className="text-xl px-4 py-2 w-1/4 border-b-2 bg-transparent focus:outline-none font-semibold focus:border-green-600 tracking-wider"
+              whileFocus={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
-            <button
+            <motion.button
               type="button"
               onClick={handleAmount}
               className="h-14 relative top-10 bg-green-600 w-1/6 text-xl font-bold text-black tracking-wider rounded-xl hover:bg-green-900 cursor-pointer transition duration-500"
+              whileHover={{ scale: 1.1 }}
             >
               Transfer Amount
-            </button>
-          </div>
-          )
-        }
+            </motion.button>
+          </motion.div>
+        )}
       </div>
     </>
   );

@@ -36,12 +36,12 @@ const Accounts = ({ accounts_Data }) => {
       transition={{ duration: 0.8 }}
     >
       <motion.h1
-        className="text-3xl font-semibold tracking-wide underline underline-offset-4 pb-2"
+        className="text-3xl font-semibold tracking-wider   underline underline-offset-8 pb-2"
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.6 }}
       >
-        Accounts of Bankura
+        Accounts of Bankera
       </motion.h1>
       <motion.div
         className="flex justify-around w-full max-w-4xl mt-6 mb-6"
@@ -67,10 +67,10 @@ const Accounts = ({ accounts_Data }) => {
       </motion.div>
       {accounts_Data.length === 0 ? (
         <motion.p
-          className="text-red-600 text-3xl font-semibold mt-20 backdrop-blur-md py-4 px-8 border-4 border-red-800 rounded-lg"
+          className="text-red-600 text-4xl font-semibold mt-14 backdrop-blur-lg py-4 px-8 border-4 border-red-400 rounded-lg"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
+          transition={{ duration: 1, delay: 1 }}
         >
           No Accounts Has Been Created
         </motion.p>
