@@ -8,7 +8,11 @@ export default {
     extend: {
       backgroundImage:{
         'main-poster':"url('https://static.vecteezy.com/system/resources/previews/026/827/704/non_2x/banking-technology-design-vector.jpg')"
+      },
+      fontFamily:{
+        "All-Font": ["Rubik", "serif"]
       }
+
     },
   },
   plugins: [],

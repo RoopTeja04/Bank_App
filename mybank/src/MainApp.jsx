@@ -16,15 +16,15 @@ const MainApp = () => {
             <div className='absolute inset-0 bg-main-poster bg-center w-full z-0'></div>
             <div className="absolute inset-0 bg-slate-900 bg-opacity-85 z-0 h-full"></div>
 
-            <div className='relative text-white'>
+            <div className='relative text-white font-All-Font tracking-wider'>
                 <div className='flex flex-row items-center pt-4 px-8 justify-between'>
                     <div className='flex items-center cursor-pointer'>
                         <img className='h-12' src={BankLogo} alt='' />
-                        <h1 className='text-3xl pb-2 pl-2 font-semibold tracking-wide'>Bankera</h1>
+                        <h1 className='text-4xl pl-2 font-semibold tracking-wide'>Bankera</h1>
                     </div>
                     <div className='flex pt-4 pr-6 space-x-10'>
                         <Link 
-                            className='transition-all duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
+                            className='transition-all text-xl duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
                             to="/"
                         >
                             Create Account
