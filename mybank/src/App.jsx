@@ -5,7 +5,7 @@ const App = () => {
 
   return (
     <>
-      <MainApp />
+      <MainApp className="font-All-Font" />
     </>
   )
 }

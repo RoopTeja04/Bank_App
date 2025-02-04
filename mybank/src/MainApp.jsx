@@ -13,8 +13,8 @@ const MainApp = () => {
         
     return (
         <div className='relative h-screen'>
-            <div className='absolute inset-0 bg-main-poster bg-center w-full z-0'></div>
-            <div className="absolute inset-0 bg-slate-900 bg-opacity-85 z-0 h-full"></div>
+            <div className='absolute inset-0 bg-main-poster bg-center w-full z-0 min-h-full'></div>
+            <div className="absolute inset-0 bg-slate-900 bg-opacity-85 z-0 "></div>
 
             <div className='relative text-white font-All-Font tracking-wider'>
                 <div className='flex flex-row items-center pt-4 px-8 justify-between'>
@@ -24,31 +24,31 @@ const MainApp = () => {
                     </div>
                     <div className='flex pt-4 pr-6 space-x-10'>
                         <Link 
-                            className='transition-all text-xl duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
+                            className='transition-all text-base duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
                             to="/"
                         >
                             Create Account
                         </Link>
                         <Link 
-                            className='transition-all duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
+                            className='transition-all text-base duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
                             to="/transactions"
                         >
                             Tranactions
                         </Link>
                         <Link 
-                            className='transition-all duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
+                            className='transition-all text-base duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
                             to="/update-account"
                         >
                             Update Account
                         </Link>
                         <Link 
-                            className='transition-all duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
+                            className='transition-all text-base duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
                             to="/account-history"
                         >
                             Account History
                         </Link>
                         <Link 
-                            className='transition-all duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform'
+                            className='transition-all text-base duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform'
                             to="/accounts"
                         >
                             Accounts
