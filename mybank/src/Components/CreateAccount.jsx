@@ -20,13 +20,18 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
 
     const handleGenerateAccountNumber = () => {
 
-        const account_Number = Math.floor(100000000000 + Math.random()* 900000000000);
+        let account_Number = "";
 
-        if ( account_Number.toString().length === 12 ){
-            setUserDetails({ ...userDetails, AccountNumber: account_Number});
-            setVisible(false);
+        const nums = "0123456789";
+
+        while( account_Number.length < 12 ){
+            account_Number += Math.floor(Math.random() * nums.length);
         }
 
+        if ( account_Number.toString().length === 12 ){
+            setUserDetails({ ...userDetails, AccountNumber: Number(account_Number)});
+            setVisible(false);
+        }
     }
 
     const handleUserFormSubmit = (e) =>{
@@ -97,6 +102,7 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             placeholder='First Name'
                             value={userDetails.FirstName}
                             onChange={(e) => setUserDetails({ ...userDetails, FirstName: e.target.value})}
+                            required
                         />
                         <input 
                             type="text"
@@ -104,6 +110,7 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             placeholder='Last Name'
                             value={userDetails.LastName}
                             onChange={(e) => setUserDetails({ ...userDetails, LastName: e.target.value})}
+                            required
                         />
                         <input 
                             type="text"
@@ -111,6 +118,7 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             placeholder='Phone Number'
                             value={userDetails.PhoneNumber}
                             onChange={(e) => setUserDetails({ ...userDetails, PhoneNumber: e.target.value})}
+                            required
                         />
                         <input 
                             type="email"
@@ -118,6 +126,7 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             placeholder='E-Mail'
                             value={userDetails.EmailId}
                             onChange={(e) => setUserDetails({ ...userDetails, EmailId: e.target.value})}
+                            required
                         />
                         <input 
                             type="text"
@@ -125,6 +134,7 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             placeholder='Intial Deposit ( Min ₹500/-) '
                             value={userDetails.Balance}
                             onChange={(e) => setUserDetails({ ...userDetails, Balance: e.target.value})}
+                            required
                         />
                         <input 
                             type="text"
@@ -133,6 +143,7 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             readOnly
                             value={userDetails.AccountNumber}
                             onChange={(e) => setUserDetails({ ...userDetails, AccountNumber: e.target.value})}
+                            required
                         />
                     </motion.form>
                     <motion.button 
