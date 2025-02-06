@@ -24,9 +24,18 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
     const fromAccountNum = Number(transferAccountNumbers.FromAccountNumber.trim());
     const toAccountNum = Number(transferAccountNumbers.ToAccountNumber.trim());
 
+    const Fromnumber = String(fromAccountNum);
+    const ToNumber = String(toAccountNum);
+
     if (fromAccountNum === toAccountNum) {
       alert('From and To Account Numbers are the same. Transfer is not allowed.');
       return;
+    }
+    else if ( Fromnumber.length !== 12 ) {
+      alert(`(${fromAccountNum}) InValid Number. Please check the number once!...`)
+    }
+    else if( ToNumber.length !== 12 ){
+      alert(`${toAccountNum} InValid Number. Please check the number once!...`)
     }
 
     const findFromAccountNumber = accounts_Data.find(

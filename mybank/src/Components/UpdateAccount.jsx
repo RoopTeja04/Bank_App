@@ -66,6 +66,7 @@ const UpdateAccount = ({ accounts_Data, setAccounts_Data }) => {
           placeholder='Enter Account Number'
           value={searchAccountNumber}
           onChange={(e) => setSearchAccountNumber(e.target.value)}
+          minLength={12}
           className="text-xl px-4 py-2 w-1/4 border-b-2 bg-transparent focus:outline-none font-semibold focus:border-green-600 tracking-wider text-center"
         />
         <button

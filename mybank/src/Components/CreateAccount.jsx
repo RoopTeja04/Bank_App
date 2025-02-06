@@ -38,7 +38,10 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
 
         e.preventDefault();
 
-        if( Number(userDetails.Balance) < 500 ){
+        if ( userDetails.FirstName === " " || userDetails.AccountNumber === "" || userDetails.Balance === "" || userDetails.EmailId === "" || userDetails.LastName === "" || userDetails.PhoneNumber === "" ) {
+            alert(" Please Fill the required !... "); 
+        }
+        else if( Number(userDetails.Balance) < 500 ){
             alert("Initial Deposit must be 500 or more");
             return;
         }
@@ -119,6 +122,8 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             value={userDetails.PhoneNumber}
                             onChange={(e) => setUserDetails({ ...userDetails, PhoneNumber: e.target.value})}
                             required
+                            minLength={10}
+                            maxLength={10}
                         />
                         <input 
                             type="email"
