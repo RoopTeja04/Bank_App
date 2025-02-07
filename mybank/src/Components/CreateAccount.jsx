@@ -38,8 +38,8 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
 
         e.preventDefault();
 
-        if ( userDetails.FirstName === " " || userDetails.AccountNumber === "" || userDetails.Balance === "" || userDetails.EmailId === "" || userDetails.LastName === "" || userDetails.PhoneNumber === "" ) {
-            alert(" Please Fill the required !... "); 
+        if ( userDetails.FirstName === " " || userDetails.AccountNumber === "" || userDetails.Balance === "" || userDetails.EmailId === "" || userDetails.LastName === "" || userDetails.PhoneNumber === ""  ) {
+            alert(" Please Fill the required Fields !... "); 
         }
         else if( Number(userDetails.Balance) < 500 ){
             alert("Initial Deposit must be 500 or more");
@@ -50,10 +50,18 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
             return;
         }
         else{
-            setAccounts_Data([...accounts_Data, userDetails]);
-            setUserDetails(DefaultValues);
-            setVisible(true);
-            setSuccess(true);
+
+            const CheckNumber = String(userDetails.PhoneNumber)
+            if ( CheckNumber.length === 10 ){
+                setAccounts_Data([...accounts_Data, userDetails]);
+                setUserDetails(DefaultValues);
+                setVisible(true);
+                setSuccess(true);
+            }
+            else{
+                alert("Please check the Phone Number once Again!...")
+            }
+            
         }
     }
 
@@ -122,7 +130,6 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                             value={userDetails.PhoneNumber}
                             onChange={(e) => setUserDetails({ ...userDetails, PhoneNumber: e.target.value})}
                             required
-                            minLength={10}
                             maxLength={10}
                         />
                         <input 
