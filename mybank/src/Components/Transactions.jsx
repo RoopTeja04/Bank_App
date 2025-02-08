@@ -27,15 +27,21 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
     const Fromnumber = String(fromAccountNum);
     const ToNumber = String(toAccountNum);
 
-    if (fromAccountNum === toAccountNum) {
+    if ( !fromAccountNum || !toAccountNum ){
+      alert("enter the fields first!...");
+      return;
+    }
+    else if(fromAccountNum === toAccountNum) {
       alert('From and To Account Numbers are the same. Transfer is not allowed.');
       return;
     }
     else if ( Fromnumber.length !== 12 ) {
-      alert(`(${fromAccountNum}) InValid Number. Please check the number once!...`)
+      alert(`(${fromAccountNum}) InValid Number. Please check the number once!...`);
+      return;
     }
     else if( ToNumber.length !== 12 ){
-      alert(`${toAccountNum} InValid Number. Please check the number once!...`)
+      alert(`${toAccountNum} InValid Number. Please check the number once!...`);
+      return;
     }
 
     const findFromAccountNumber = accounts_Data.find(
@@ -145,6 +151,7 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
               })
             }
             placeholder="From Account Number"
+            maxLength={12}
             className="text-xl px-4 py-2 w-1/4 border-b-2 bg-transparent focus:outline-none font-semibold focus:border-green-600 tracking-wider"
             whileFocus={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
@@ -164,6 +171,7 @@ const Transactions = ({ accounts_Data, setAccounts_Data }) => {
               })
             }
             placeholder="To Account Number"
+            maxLength={12}
             className="text-xl px-4 py-2 w-1/4 border-b-2 bg-transparent focus:outline-none font-semibold focus:border-green-600 tracking-wider"
             whileFocus={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}

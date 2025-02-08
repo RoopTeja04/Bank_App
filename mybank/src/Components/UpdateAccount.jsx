@@ -10,16 +10,22 @@ const UpdateAccount = ({ accounts_Data, setAccounts_Data }) => {
   const handleSearchAccountNumber = (e) => {
     e.preventDefault();
 
-    const account = accounts_Data.find(
-      (account) => Number(account.AccountNumber) === Number(searchAccountNumber)
-    );
+    if ( !searchAccountNumber ) {
+      alert("enter the fields first!...");
+      return;
+    } 
+    else{
+      const account = accounts_Data.find(
+        (account) => Number(account.AccountNumber) === Number(searchAccountNumber)
+      );
 
-    if (account) {
-      setSearchResult(account);
-      setUpdatedAccount({ ...account });
-      setEdit(false);
-    } else {
-      setSearchResult('Account not found');
+      if (account) {
+        setSearchResult(account);
+        setUpdatedAccount({ ...account });
+        setEdit(false);
+      } else {
+        setSearchResult('Account not found');
+      }
     }
   };
 
@@ -81,7 +87,7 @@ const UpdateAccount = ({ accounts_Data, setAccounts_Data }) => {
         <>
           {typeof searchResult === 'string' ? (
             <motion.p
-              className="text-red-500 mt-5"
+              className="text-red-600 mt-10 text-4xl backdrop-blur-xl px-20 py-8 rounded-md border-2 border-red-600 capitalize"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}

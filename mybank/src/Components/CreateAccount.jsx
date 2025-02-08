@@ -41,8 +41,8 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
         if ( userDetails.FirstName === " " || userDetails.AccountNumber === "" || userDetails.Balance === "" || userDetails.EmailId === "" || userDetails.LastName === "" || userDetails.PhoneNumber === ""  ) {
             alert(" Please Fill the required Fields !... "); 
         }
-        else if( Number(userDetails.Balance) < 500 ){
-            alert("Initial Deposit must be 500 or more");
+        else if( Number(userDetails.Balance) < 500){
+            alert("Initial Deposit must be 500 and Please check the deposit value once what you entered!... ");
             return;
         }
         else if( userDetails.AccountType === "" ){
@@ -50,16 +50,20 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
             return;
         }
         else{
+            const CheckNumber = String(userDetails.PhoneNumber);
+            const CheckFirstName = /^[A-Za-z\s]+$/.test(userDetails.FirstName);
+            const CheckLastName = /^[A-Za-z\s]+$/.test(userDetails.LastName);
+            const CheckEmailID = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(userDetails.EmailId);
+            const CheckDeposit = String(userDetails.Balance);
 
-            const CheckNumber = String(userDetails.PhoneNumber)
-            if ( CheckNumber.length === 10 ){
+            if ( /^\d{10}$/.test(CheckNumber) && CheckNumber.length === 10 && CheckFirstName && CheckLastName && CheckEmailID && /^\d+$/.test(CheckDeposit)  ){
                 setAccounts_Data([...accounts_Data, userDetails]);
                 setUserDetails(DefaultValues);
                 setVisible(true);
                 setSuccess(true);
             }
             else{
-                alert("Please check the Phone Number once Again!...")
+                alert("Some thing went wrong check the details Once!...")
             }
             
         }

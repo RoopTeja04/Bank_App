@@ -13,7 +13,7 @@ const MainApp = () => {
         
     return (
         <div className='relative h-screen'>
-            <div className='absolute inset-0 bg-main-poster bg- w-full z-0 min-h-screen'></div>
+            <div className='absolute inset-0 bg-main-poster bg-center w-full z-0 min-h-screen'></div>
             <div className="absolute inset-0 bg-slate-900 bg-opacity-85 z-0 "></div>
 
             <div className='relative text-white font-All-Font tracking-wider'>
@@ -33,7 +33,7 @@ const MainApp = () => {
                             className='transition-all text-base duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 
                             to="/transactions"
                         >
-                            Tranactions
+                            Transactions
                         </Link>
                         <Link 
                             className='transition-all text-base duration-200 hover:underline hover:underline-offset-8 hover:text-green-500 transform' 

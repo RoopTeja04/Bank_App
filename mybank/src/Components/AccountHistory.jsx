@@ -11,13 +11,19 @@ const AccountHistory = ({ accounts_Data }) => {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    const foundAccount = accounts_Data.find(
-      (account) => Number(account.AccountNumber) === Number(searchNumber)
-    );
-
-    setFoundedAccount(foundAccount ? [foundAccount] : []);
-    setSearchNumber('');
-    setVisible(true);
+    if(!searchNumber){
+      alert("enter the fields first!...");
+      return;
+    }
+    else{
+      const foundAccount = accounts_Data.find(
+        (account) => Number(account.AccountNumber) === Number(searchNumber)
+      );
+  
+      setFoundedAccount(foundAccount ? [foundAccount] : []);
+      setSearchNumber('');
+      setVisible(true);
+    }
   };
 
   return (
@@ -35,6 +41,7 @@ const AccountHistory = ({ accounts_Data }) => {
             placeholder="Enter the Account Number"
             value={searchNumber}
             onChange={(e) => setSearchNumber(e.target.value)}
+            maxLength={12}
             className="text-xl px-4 py-2 w-1/4 border-b-2 bg-transparent focus:outline-none font-semibold focus:border-green-600 tracking-wider text-center"
           />
           <button
