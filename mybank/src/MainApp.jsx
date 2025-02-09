@@ -12,8 +12,8 @@ const MainApp = () => {
     const [ accounts_Data, setAccounts_Data ] = useState([]) || null;
         
     return (
-        <div className='relative h-screen'>
-            <div className='absolute inset-0 bg-gradient-to-br from-fuchsia-600 to-blue-500 bg-center w-full z-0 min-h-screen'></div>
+        <div className='relative min-h-screen'>
+            <div className='absolute inset-0 bg-gradient-to-br from-fuchsia-600 to-blue-500 bg-cover min-h-screen w-full'></div>
             <div className="absolute inset-0 bg-slate-900 bg-opacity-85 z-0 "></div>
 
             <div className='relative text-white font-All-Font tracking-wider'>
