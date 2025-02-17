@@ -2,28 +2,42 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import axios from 'axios'; 
 
-const AccountHistory = ({ accounts_Data }) => {
+const AccountHistory = () => {
   const [searchNumber, setSearchNumber] = useState('');
   const [foundedAccount, setFoundedAccount] = useState([]);
   const [visible, setVisible] = useState(false);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
 
-    if(!searchNumber){
-      alert("enter the fields first!...");
+    if (!searchNumber) {
+      alert("Enter the fields first!");
       return;
     }
-    else{
-      const foundAccount = accounts_Data.find(
-        (account) => Number(account.AccountNumber) === Number(searchNumber)
-      );
-  
-      setFoundedAccount(foundAccount ? [foundAccount] : []);
-      setSearchNumber('');
-      setVisible(true);
+
+    if (searchNumber.length !== 12) {
+      alert("Please enter a valid 12-digit account number.");
+      return;
     }
+
+    try {
+      const response = await axios.get(`http://localhost:8080/api/accounts/${searchNumber}`);
+      const founded = response.data;
+
+      if (founded && founded.AccountNumber) {
+        setFoundedAccount([founded]);
+        setVisible(true);
+      } else {
+        setFoundedAccount([]);
+        setVisible(true);
+      }
+    } catch (err) {
+      console.error("Error fetching account data:", err);
+      alert("Error fetching account data. Please try again.");
+    }
+    setSearchNumber('');
   };
 
   return (
@@ -32,7 +46,7 @@ const AccountHistory = ({ accounts_Data }) => {
         className="relative flex flex-col items-center text-white w-screen top-14"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1}}
+        transition={{ duration: 1 }}
       >
         <h1 className="text-3xl font-semibold tracking-wide">Account History</h1>
         <div className="w-screen flex flex-col justify-center items-center relative top-10">
@@ -68,26 +82,26 @@ const AccountHistory = ({ accounts_Data }) => {
                 >
                   <h1 className="text-4xl font-semibold tracking-widest pb-2 uppercase">{`${account.FirstName} ${account.LastName}`}</h1>
                   <span className="text-lg font-light tracking-wider py-2">
-                    Account Number:{' '}
+                    Account Number:
                     <span className="text-3xl font-medium">{account.AccountNumber}</span>
                   </span>
                   <div className="grid grid-cols-2 gap-6 gap-x-14 mt-6 ml-10">
                     <span className="text-base font-light tracking-wider pb-2">
-                      Account Type:{' '}
+                      Account Type:
                       <span className="text-2xl font-medium"> {account.AccountType}</span>
                     </span>
                     <span className="text-base font-light tracking-wider pb-2">
-                      Balance:{' '}
+                      Balance:
                       <span className="text-2xl font-medium">
                         ₹ {Number(account.Balance).toLocaleString('hi-IN')} /-
                       </span>
                     </span>
                     <span className="text-base font-light tracking-wider pb-2">
-                      E-Mail Id:{' '}
+                      E-Mail Id:
                       <span className="text-2xl font-medium">{account.EmailId}</span>
                     </span>
                     <span className="text-base font-light tracking-wider pb-2">
-                      Phone Number:{' '}
+                      Phone Number:
                       <span className="text-2xl font-medium">{account.PhoneNumber}</span>
                     </span>
                   </div>
@@ -105,7 +119,7 @@ const AccountHistory = ({ accounts_Data }) => {
                           >
                             <span className="text-base font-medium text-gray-300 tracking-wider">
                               {transaction.DateTime}
-                            </span>{' '}
+                            </span>
                             -
                             <span className="text-base">
                               {transaction.Type === 'Debit' ? (
@@ -119,7 +133,7 @@ const AccountHistory = ({ accounts_Data }) => {
                                   {`${transaction.Type}`}
                                 </p>
                               )}
-                            </span>{' '}
+                            </span>
                             -
                             <span className="text-base font-medium text-green-500">
                               {transaction.Type === 'Debit' ? (
