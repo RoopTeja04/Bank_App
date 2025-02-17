@@ -1,17 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const Accounts = ({ accounts_Data }) => {
+  const [accounts, setAccounts] = useState([])
   const [savingCount, setSavingCount] = useState(0);
   const [currentCount, setCurrentCount] = useState(0);
 
   useEffect(() => {
-    const savingsAccount = accounts_Data.filter(Account => Account.AccountType === "savings");
-    const currentAccount = accounts_Data.filter(Account => Account.AccountType === "current");
+    const fetchAccounts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/accounts');
+        const data = response.data;
+        setAccounts(data);
 
-    setSavingCount(savingsAccount.length);
-    setCurrentCount(currentAccount.length);
-  }, [accounts_Data]);
+        const savingsAccount = data.filter(Account => Account.AccountType === "savings");
+        const currentAccount = data.filter(Account => Account.AccountType === "current");
+
+        setSavingCount(savingsAccount.length);
+        setCurrentCount(currentAccount.length);
+      } 
+      catch (err) {
+        setError('Failed to load accounts. Please try again later.');
+        console.error('Error fetching accounts data:', err);
+      } 
+    };
+
+    fetchAccounts();
+  }, []);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -24,7 +40,7 @@ const Accounts = ({ accounts_Data }) => {
       opacity: 1,
       x: 0,
       transition: { delay: index * 0.1 },
-      delay:1,
+      delay: 1,
     }),
   };
 
@@ -79,7 +95,7 @@ const Accounts = ({ accounts_Data }) => {
           className="overflow-x-auto w-full mt-4 pl-10 pr-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay:1 }}
+          transition={{ duration: 0.8, delay: 1 }}
         >
           <table className="table-auto border-collapse border border-gray-300 w-full text-center text-sm">
             <thead>
@@ -95,12 +111,11 @@ const Accounts = ({ accounts_Data }) => {
               </tr>
             </thead>
             <tbody>
-              {accounts_Data.map((person, index) => (
+              {accounts.map((person, index) => (
                 <motion.tr
                   key={index}
-                  className={`${
-                    index % 2 === 0 ? "bg-transparent" : "bg-transparent"
-                  } hover:bg-green-600 hover:text-black cursor-pointer transition duration-100`}
+                  className={`${index % 2 === 0 ? "bg-transparent" : "bg-transparent"
+                    } hover:bg-green-600 hover:text-black cursor-pointer transition duration-100`}
                   custom={index}
                   initial="hidden"
                   animate="visible"
