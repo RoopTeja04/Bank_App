@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
-const Accounts = ({ accounts_Data }) => {
+const Accounts = () => {
   const [accounts, setAccounts] = useState([])
   const [savingCount, setSavingCount] = useState(0);
   const [currentCount, setCurrentCount] = useState(0);
@@ -77,11 +77,11 @@ const Accounts = ({ accounts_Data }) => {
         </motion.div>
         <motion.div className="account-card bg-gradient-to-r from-purple-400 to-purple-600 px-6 py-4 rounded-2xl text-black cursor-pointer" variants={cardVariants}>
           <p className="font-medium text-lg">
-            Total Account: <span className="text-3xl font-bold">{accounts_Data.length}</span>
+            Total Account: <span className="text-3xl font-bold">{accounts.length}</span>
           </p>
         </motion.div>
       </motion.div>
-      {accounts_Data.length === 0 ? (
+      {accounts.length === 0 ? (
         <motion.p
           className="text-red-600 text-4xl font-semibold mt-14 backdrop-blur-lg py-4 px-8 border-4 border-red-400 rounded-lg"
           initial={{ opacity: 0 }}

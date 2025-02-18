@@ -107,7 +107,8 @@ const Transactions = () => {
           transition={{ duration: 0.3 }}
         />
         <SwapHorizRoundedIcon
-          className="relative top-1 text-6xl border-4 border-white rounded-full px-2 cursor-pointer"
+          style={{fontSize:"48px"}}
+          className='relative top-1.5 cursor-pointer border-2 border-white rounded-full p-2'
           onClick={SwapAccountNumber}
         />
         <motion.input
