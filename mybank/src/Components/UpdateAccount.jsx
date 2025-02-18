@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const UpdateAccount = ({ accounts_Data, setAccounts_Data }) => {
   const [searchAccountNumber, setSearchAccountNumber] = useState('');
@@ -7,25 +8,21 @@ const UpdateAccount = ({ accounts_Data, setAccounts_Data }) => {
   const [edit, setEdit] = useState(false);
   const [updatedAccount, setUpdatedAccount] = useState(null);
 
-  const handleSearchAccountNumber = (e) => {
+  const handleSearchAccountNumber = async(e) => {
     e.preventDefault();
 
     if ( !searchAccountNumber ) {
       alert("enter the fields first!...");
       return;
     } 
-    else{
-      const account = accounts_Data.find(
-        (account) => Number(account.AccountNumber) === Number(searchAccountNumber)
-      );
-
-      if (account) {
-        setSearchResult(account);
-        setUpdatedAccount({ ...account });
-        setEdit(false);
-      } else {
-        setSearchResult('Account not found');
-      }
+    try{
+      const response = await axios.get(`http://localhost:8080/api/accounts/${searchAccountNumber}`);
+      setSearchResult(response.data);
+      setUpdatedAccount(response.data);
+      setEdit(false);
+    }
+    catch(err){
+      setSearchResult('Account Not Found');
     }
   };
 
@@ -34,19 +31,18 @@ const UpdateAccount = ({ accounts_Data, setAccounts_Data }) => {
     setUpdatedAccount((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdateAccount = (e) => {
+  const handleUpdateAccount = async(e) => {
     e.preventDefault();
 
-    setAccounts_Data((prevAccounts) =>
-      prevAccounts.map((account) =>
-        account.AccountNumber === updatedAccount.AccountNumber
-          ? { ...updatedAccount }
-          : account
-      )
-    );
-
-    setSearchResult(updatedAccount);
-    setEdit(false);
+    try{
+      await axios.put(`http://localhost:8080/api/accounts/${updatedAccount.AccountNumber}`, updatedAccount);
+      alert('Account Updated Successfully!');
+      setSearchResult(updatedAccount);
+      setEdit(false);
+    }
+    catch(err){
+      alert("Failed to Update Account!...");
+    }
   };
 
   return (

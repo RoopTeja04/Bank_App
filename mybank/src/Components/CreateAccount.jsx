@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
+import axios from 'axios';
 
-const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
+const CreateAccount = () => {
 
     const DefaultValues = {
         FirstName: '',
@@ -14,7 +15,6 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
     }
 
     const [ userDetails, setUserDetails ] = useState(DefaultValues);
-
     const [ visible, setVisible ] = useState(true);
     const [ success, setSuccess ] = useState(false);
 
@@ -34,12 +34,13 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
         }
     }
 
-    const handleUserFormSubmit = (e) =>{
+    const handleUserFormSubmit = async (e) =>{
 
         e.preventDefault();
 
-        if ( userDetails.FirstName === " " || userDetails.AccountNumber === "" || userDetails.Balance === "" || userDetails.EmailId === "" || userDetails.LastName === "" || userDetails.PhoneNumber === ""  ) {
+        if ( userDetails.FirstName === " " || userDetails.AccountNumber === "" || userDetails.Balance === "" || userDetails.EmailId === "" || userDetails.LastName === "" || userDetails.PhoneNumber === ""  ){
             alert(" Please Fill the required Fields !... "); 
+            return;
         }
         else if( Number(userDetails.Balance) < 500){
             alert("Initial Deposit must be 500 and Please check the deposit value once what you entered!... ");
@@ -63,10 +64,23 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                 setSuccess(true);
             }
             else{
-                alert("Some thing went wrong check the details Once!...")
+                alert("Some thing went wrong check the details Once!...");
+                return;
             }
-            
         }
+
+        try{
+            const response = await axios.post("http://localhost:8080/api/accounts", userDetails);
+
+            if(response === 201){
+                setSuccess(true);
+                setUserDetails(DefaultValues);
+            }
+        }
+        catch(err){
+            alert("Failed to create account. Please try again!....");
+        }
+
     }
 
     useEffect(() => {
@@ -194,7 +208,7 @@ const CreateAccount = ({ accounts_Data, setAccounts_Data }) => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                             >
-                                {`Mr / Mrs. ${accounts_Data[accounts_Data.length - 1]?.FirstName}, your account is created successfully!`}
+                                {`your account is created successfully!`}
                             </motion.p>
                         )
                     }

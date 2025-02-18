@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom'
 import CreateAccount from './Components/CreateAccount';
 import Transactions from './Components/Transactions';
@@ -8,8 +8,6 @@ import BankLogo  from './assets/react.svg'
 import AccountHistory from './Components/AccountHistory';
 
 const MainApp = () => {
-
-    const [ accounts_Data, setAccounts_Data ] = useState([]) || null;
         
     return (
         <div className='relative min-h-screen'>
@@ -59,11 +57,11 @@ const MainApp = () => {
 
             <div>
                 <Routes>
-                    <Route path='/' element={<CreateAccount accounts_Data = { accounts_Data } setAccounts_Data = { setAccounts_Data } />} />
-                    <Route path='/transactions' element={<Transactions accounts_Data = { accounts_Data } setAccounts_Data = { setAccounts_Data } />} />
-                    <Route path='/update-account' element={<UpdateAccount accounts_Data = { accounts_Data } setAccounts_Data = { setAccounts_Data } />} />
-                    <Route path='/account-history' element={<AccountHistory accounts_Data = { accounts_Data } />} />
-                    <Route path='/accounts' element={<Accounts accounts_Data = { accounts_Data } />} />
+                    <Route path='/' element={<CreateAccount />} />
+                    <Route path='/transactions' element={<Transactions />} />
+                    <Route path='/update-account' element={<UpdateAccount />} />
+                    <Route path='/account-history' element={<AccountHistory />} />
+                    <Route path='/accounts' element={<Accounts />} />
                 </Routes>
             </div>
         </div>
