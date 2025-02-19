@@ -21,7 +21,6 @@ const Accounts = () => {
         setCurrentCount(currentAccount.length);
       } 
       catch (err) {
-        setError('Failed to load accounts. Please try again later.');
         console.error('Error fetching accounts data:', err);
       } 
     };

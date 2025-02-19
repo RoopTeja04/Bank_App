@@ -15,7 +15,6 @@ const CreateAccount = () => {
     }
 
     const [ userDetails, setUserDetails ] = useState(DefaultValues);
-    const [ accounts_Data, setAccounts_Data ] = useState([]);
     const [ visible, setVisible ] = useState(true);
     const [ success, setSuccess ] = useState(false);
 
@@ -52,29 +51,25 @@ const CreateAccount = () => {
             return;
         }
         else{
-            const CheckNumber = String(userDetails.PhoneNumber);
+            const CheckNumber = /^\d{10}$/.test(userDetails.PhoneNumber);
             const CheckFirstName = /^[A-Za-z\s]+$/.test(userDetails.FirstName);
             const CheckLastName = /^[A-Za-z\s]+$/.test(userDetails.LastName);
             const CheckEmailID = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(userDetails.EmailId);
-            const CheckDeposit = String(userDetails.Balance);
+            const CheckDeposit = /^\d+$/.test(userDetails.Balance);
 
-            if ( /^\d{10}$/.test(CheckNumber) && CheckNumber.length === 10 && CheckFirstName && CheckLastName && CheckEmailID && /^\d+$/.test(CheckDeposit)  ){
-                setAccounts_Data([...accounts_Data, userDetails]);
-                setUserDetails(DefaultValues);
-                setVisible(true);
-                setSuccess(true);
-            }
-            else{
-                alert("Some thing went wrong check the details Once!...");
+            if ( !CheckNumber || !CheckFirstName || !CheckLastName || !CheckEmailID || !CheckDeposit){
+                alert("Invalid input! Please check your details.");
                 return;
             }
+            console.log("success! works");
         }
 
         try{
-            const response = await axios.post("http://localhost:8080/api/users", userDetails);
+            const response = await axios.post("http://103.186.40.231/api/users", userDetails);
             if(response.status === 201){
                 setSuccess(true);
                 setUserDetails(DefaultValues);
+                setVisible(true);
             }
         }
         catch(err){
