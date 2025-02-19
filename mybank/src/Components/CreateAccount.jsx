@@ -15,6 +15,7 @@ const CreateAccount = () => {
     }
 
     const [ userDetails, setUserDetails ] = useState(DefaultValues);
+    const [ accounts_Data, setAccounts_Data ] = useState([]);
     const [ visible, setVisible ] = useState(true);
     const [ success, setSuccess ] = useState(false);
 
@@ -70,9 +71,8 @@ const CreateAccount = () => {
         }
 
         try{
-            const response = await axios.post("http://localhost:8080/api/accounts", userDetails);
-
-            if(response === 201){
+            const response = await axios.post("http://localhost:8080/api/users", userDetails);
+            if(response.status === 201){
                 setSuccess(true);
                 setUserDetails(DefaultValues);
             }
