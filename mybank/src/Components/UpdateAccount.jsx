@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
-const UpdateAccount = ({ accounts_Data, setAccounts_Data }) => {
+const UpdateAccount = ({}) => {
   const [searchAccountNumber, setSearchAccountNumber] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [edit, setEdit] = useState(false);
